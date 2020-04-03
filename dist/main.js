@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports["default"] = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
@@ -11,11 +11,13 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _promise = _interopRequireDefault(require("promise"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -23,9 +25,13 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+function _createSuper(Derived) { return function () { var Super = _getPrototypeOf(Derived), result; if (_isNativeReflectConstruct()) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
@@ -33,17 +39,17 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var StepZilla =
-/*#__PURE__*/
-function (_Component) {
+var StepZilla = /*#__PURE__*/function (_Component) {
   _inherits(StepZilla, _Component);
+
+  var _super = _createSuper(StepZilla);
 
   function StepZilla(props) {
     var _this;
 
     _classCallCheck(this, StepZilla);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(StepZilla).call(this, props));
+    _this = _super.call(this, props);
     _this.state = {
       compState: _this.props.startAtStep,
       navState: _this.getNavStates(_this.props.startAtStep, _this.props.steps.length)
@@ -57,10 +63,17 @@ function (_Component) {
     _this.applyValidationFlagsToSteps();
 
     return _this;
-  } // extend the "steps" array with flags to indicate if they have been validated
-
+  }
 
   _createClass(StepZilla, [{
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      if (prevProps.steps.length !== this.props.steps.length) {
+        this.setNavState(this.state.compState);
+      }
+    } // extend the "steps" array with flags to indicate if they have been validated
+
+  }, {
     key: "applyValidationFlagsToSteps",
     value: function applyValidationFlagsToSteps() {
       var _this2 = this;
@@ -213,7 +226,7 @@ function (_Component) {
               });
             }
           }
-        }).catch(function () {
+        })["catch"](function () {
           // Promise based validation was a fail (i.e reject())
           if (!movingBack) {
             _this3.updateStepValidationFlag(false);
@@ -227,7 +240,7 @@ function (_Component) {
               _this3.setNavState(evt.target.value);
             }
           }
-        }).catch(function (e) {
+        })["catch"](function (e) {
           if (e) {
             // see note below called "CatchRethrowing"
             // ... plus the finally then() above is what throws the JS Error so we need to catch that here specifically
@@ -254,7 +267,7 @@ function (_Component) {
         if (proceed) {
           _this4.setNavState(_this4.state.compState + 1);
         }
-      }).catch(function (e) {
+      })["catch"](function (e) {
         if (e) {
           // CatchRethrowing: as we wrap StepMoveAllowed() to resolve as a Promise, the then() is invoked and the next React Component is loaded.
           // ... during the render, if there are JS errors thrown (e.g. ReferenceError) it gets swallowed by the Promise library and comes in here (catch)
@@ -321,7 +334,7 @@ function (_Component) {
   }, {
     key: "abstractStepMoveAllowedToPromise",
     value: function abstractStepMoveAllowedToPromise(movingBack) {
-      return _promise.default.resolve(this.stepMoveAllowed(movingBack));
+      return _promise["default"].resolve(this.stepMoveAllowed(movingBack));
     } // get the classmame of steps
 
   }, {
@@ -342,14 +355,14 @@ function (_Component) {
       var _this5 = this;
 
       return this.props.steps.map(function (s, i) {
-        return _react.default.createElement("li", {
+        return /*#__PURE__*/_react["default"].createElement("li", {
           className: _this5.getClassName('progtrckr', i),
           onClick: function onClick(evt) {
             _this5.jumpToStep(evt);
           },
           key: i,
           value: i
-        }, _react.default.createElement("em", null, i + 1), _react.default.createElement("span", null, _this5.props.steps[i].name));
+        }, /*#__PURE__*/_react["default"].createElement("em", null, i + 1), /*#__PURE__*/_react["default"].createElement("span", null, _this5.props.steps[i].name));
       });
     } // main render of stepzilla container
 
@@ -378,19 +391,19 @@ function (_Component) {
         cloneExtensions.ref = 'activeComponent';
       }
 
-      var compToRender = _react.default.cloneElement(componentPointer, cloneExtensions);
+      var compToRender = _react["default"].cloneElement(componentPointer, cloneExtensions);
 
-      return _react.default.createElement("div", {
+      return /*#__PURE__*/_react["default"].createElement("div", {
         className: "multi-step",
         onKeyDown: function onKeyDown(evt) {
           _this6.handleKeyDown(evt);
         }
-      }, this.props.showSteps ? _react.default.createElement("ol", {
+      }, this.props.showSteps ? /*#__PURE__*/_react["default"].createElement("ol", {
         className: "progtrckr"
-      }, this.renderSteps()) : _react.default.createElement("span", null), compToRender, _react.default.createElement("div", {
+      }, this.renderSteps()) : /*#__PURE__*/_react["default"].createElement("span", null), compToRender, /*#__PURE__*/_react["default"].createElement("div", {
         style: this.props.showNavigation ? {} : this.hidden,
         className: "footer-buttons"
-      }, _react.default.createElement("button", {
+      }, /*#__PURE__*/_react["default"].createElement("button", {
         type: "button",
         style: showPreviousBtn ? {} : this.hidden,
         className: props.backButtonCls,
@@ -398,7 +411,7 @@ function (_Component) {
           _this6.previous();
         },
         id: "prev-button"
-      }, this.props.backButtonText), _react.default.createElement("button", {
+      }, this.props.backButtonText), /*#__PURE__*/_react["default"].createElement("button", {
         type: "button",
         style: showNextBtn ? {} : this.hidden,
         className: props.nextButtonCls,
@@ -413,7 +426,7 @@ function (_Component) {
   return StepZilla;
 }(_react.Component);
 
-exports.default = StepZilla;
+exports["default"] = StepZilla;
 StepZilla.defaultProps = {
   showSteps: true,
   showNavigation: true,
@@ -429,21 +442,21 @@ StepZilla.defaultProps = {
   hocValidationAppliedTo: []
 };
 StepZilla.propTypes = {
-  steps: _propTypes.default.arrayOf(_propTypes.default.shape({
-    name: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.object]).isRequired,
-    component: _propTypes.default.element.isRequired
+  steps: _propTypes["default"].arrayOf(_propTypes["default"].shape({
+    name: _propTypes["default"].oneOfType([_propTypes["default"].string, _propTypes["default"].object]).isRequired,
+    component: _propTypes["default"].element.isRequired
   })).isRequired,
-  showSteps: _propTypes.default.bool,
-  showNavigation: _propTypes.default.bool,
-  stepsNavigation: _propTypes.default.bool,
-  prevBtnOnLastStep: _propTypes.default.bool,
-  dontValidate: _propTypes.default.bool,
-  preventEnterSubmission: _propTypes.default.bool,
-  startAtStep: _propTypes.default.number,
-  nextButtonText: _propTypes.default.string,
-  nextButtonCls: _propTypes.default.string,
-  backButtonCls: _propTypes.default.string,
-  backButtonText: _propTypes.default.string,
-  hocValidationAppliedTo: _propTypes.default.array,
-  onStepChange: _propTypes.default.func
+  showSteps: _propTypes["default"].bool,
+  showNavigation: _propTypes["default"].bool,
+  stepsNavigation: _propTypes["default"].bool,
+  prevBtnOnLastStep: _propTypes["default"].bool,
+  dontValidate: _propTypes["default"].bool,
+  preventEnterSubmission: _propTypes["default"].bool,
+  startAtStep: _propTypes["default"].number,
+  nextButtonText: _propTypes["default"].string,
+  nextButtonCls: _propTypes["default"].string,
+  backButtonCls: _propTypes["default"].string,
+  backButtonText: _propTypes["default"].string,
+  hocValidationAppliedTo: _propTypes["default"].array,
+  onStepChange: _propTypes["default"].func
 };
