@@ -21,6 +21,11 @@ export default class StepZilla extends Component {
     this.applyValidationFlagsToSteps();
   }
 
+  componentDidUpdate(prevProps) {
+    if(prevProps.steps.length !== this.props.steps.length)
+      this.setNavState();
+  }
+
   // extend the "steps" array with flags to indicate if they have been validated
   applyValidationFlagsToSteps() {
     this.props.steps.map((i, idx) => {
